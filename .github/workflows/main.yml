@@ -48,7 +48,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/chore/danny')
 
       - name: Docker meta
         id: meta
@@ -61,7 +61,7 @@ jobs:
         run: ./test_build.sh "${{ matrix.image }}" test/test-crate
 
       - name: Push tested image
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/chore/danny')
         env:
           LOCAL_IMAGE: crates-build-env-${{ matrix.image }}:local
           REMOTE_IMAGE: ${{ steps.meta.outputs.tags }}

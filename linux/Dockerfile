@@ -6,4 +6,6 @@ RUN apt-get update && \
     cat /opt/crates-build-env/packages.txt | DEBIAN_FRONTEND=noninteractive xargs apt-get install -y && \
     rm -rf /var/lib/apt/lists/*
 
+ENV PATH="$PATH:/danny-bin"
+
 CMD ["bash"]
